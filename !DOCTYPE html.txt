@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nusikaltimų pasekmės ir Baudos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+
+        .section-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #FFFFFF;
+        }
+
+        .button-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .button, .double-ket-button {
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .button:hover, .double-ket-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Highlight selected buttons */
+        .button.selected, .double-ket-button.selected {
+            background-color: #FFD700;
+            color: #000000;
+        }
+
+        .button.selected:hover, .double-ket-button.selected:hover {
+            background-color: #FFC107;
+        }
+
+        .total, .total-second {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+
+        </div>
+    </div>
+
+    <!-- JavaScript Functionality -->
+    <script>
+        let totalFine = 0;
+        let totalJailTime = 0;
+        let selectedButtons = {};
+
+        function updateTotals() {
+            totalFine = 0;
+            totalJailTime = 0;
+            for (const key in selectedButtons) {
+                totalFine += selectedButtons[key].fine;
+                totalJailTime += selectedButtons[key].jail;
+            }
+            document.getElementById("totalSum").innerText = `Baudos: ${totalFine}`;
+            document.getElementById("totalAdditionalSum").innerText = `Kalejimo laikas: ${totalJailTime}`;
+        }
+
+        function toggleButton(fine, jail, description, type, buttonElement) {
+            if (selectedButtons[description]) {
+                delete selectedButtons[description];
+                buttonElement.classList.remove("selected"); // Remove highlight
+            } else {
+                selectedButtons[description] = { fine, jail, type };
+                buttonElement.classList.add("selected"); // Add highlight
+            }
+            updateTotals();
+        }
+
+        function doubleKETPenalties() {
+            for (const key in selectedButtons) {
+                if (selectedButtons[key].type === 'ket') {
+                    selectedButtons[key].fine *= 2;
+                    selectedButtons[key].jail *= 2;
+                }
+            }
+            updateTotals();
+        }
+    </script>
+
+</body>
+</html>
